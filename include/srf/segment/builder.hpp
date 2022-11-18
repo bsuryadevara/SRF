@@ -21,7 +21,7 @@
 #include "srf/core/watcher.hpp"
 #include "srf/engine/segment/ibuilder.hpp"
 #include "srf/exceptions/runtime_error.hpp"
-#include "srf/experimental/modules/segment_modules.hpp"
+#include "srf/modules/segment_modules.hpp"
 #include "srf/node/edge_builder.hpp"
 #include "srf/node/rx_node.hpp"
 #include "srf/node/rx_sink.hpp"
@@ -191,7 +191,7 @@ class Builder final
 
     /**
      * Register an input port on the given module -- note: this in generally only necessary for dynamically
-     * created modules that use an alternate initializer function, which is independent of the derived class.
+     * created modules that use an alternate initializer function independent of the derived class.
      * See: PythonSegmentModule
      * @param input_name Unique name of the input port
      * @param object shared pointer to type erased Object associated with 'input_name' on this module instance.
@@ -199,8 +199,8 @@ class Builder final
     void register_module_input(std::string input_name, std::shared_ptr<segment::ObjectProperties> object);
 
     /**
-     * Register an outputport on the given module -- note: this in generally only necessary for dynamically
-     * created modules that use an alternate initializer function, which is independent of the derived class.
+     * Register an output port on the given module -- note: this in generally only necessary for dynamically
+     * created modules that use an alternate initializer function independent of the derived class.
      * See: PythonSegmentModule
      * @param output_name Unique name of the output port
      * @param object shared pointer to type erased Object associated with 'output_name' on this module instance.

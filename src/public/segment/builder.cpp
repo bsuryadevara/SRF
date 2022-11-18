@@ -17,7 +17,7 @@
 
 #include "srf/segment/builder.hpp"
 
-#include "srf/experimental/modules/module_registry.hpp"
+#include "srf/modules/module_registry.hpp"
 #include "srf/node/port_registry.hpp"
 
 #include <nlohmann/json.hpp>
@@ -81,6 +81,7 @@ std::shared_ptr<ObjectProperties> Builder::get_egress(std::string name, std::typ
 void Builder::init_module(sp_segment_module_t module)
 {
     ns_push(module);
+    VLOG(2) << "Initializing module: " << m_namespace_prefix;
     module->m_module_instance_registered_namespace = m_namespace_prefix;
     module->initialize(*this);
     ns_pop();
@@ -91,12 +92,12 @@ std::shared_ptr<srf::modules::SegmentModule> Builder::load_module_from_registry(
                                                                                 std::string module_name,
                                                                                 nlohmann::json config)
 {
-    auto fn_module_constructor = srf::modules::ModuleRegistry::find_module(module_id, registry_namespace);
-    auto module                = std::move(fn_module_constructor(std::move(module_name), std::move(config)));
+    auto fn_module_constructor = srf::modules::ModuleRegistry::get_module_constructor(module_id, registry_namespace);
+    auto module                = fn_module_constructor(std::move(module_name), std::move(config));
 
     init_module(module);
 
-    return std::move(module);
+    return module;
 }
 
 /** private implementations **/

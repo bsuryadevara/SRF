@@ -17,7 +17,7 @@
 
 #pragma once
 
-#include "srf/experimental/modules/segment_modules.hpp"
+#include "srf/modules/segment_modules.hpp"
 #include "srf/segment/object.hpp"
 
 #include <pybind11/functional.h>  // IWYU pragma: keep
@@ -42,7 +42,7 @@ class SegmentModuleProxy
 
     static const std::string& name(srf::modules::SegmentModule& self);
 
-    static std::string module_name(srf::modules::SegmentModule& self);
+    static std::string module_type_name(srf::modules::SegmentModule& self);
 
     static std::vector<std::string> input_ids(srf::modules::SegmentModule& self);
 
